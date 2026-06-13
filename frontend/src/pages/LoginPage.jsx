@@ -12,11 +12,17 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const success = await login(username, password);
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      setError('Invalid username or password');
+    try {
+      const success = await login(username, password);
+      if (success) {
+        console.log('Login successful, redirecting...');
+        navigate('/dashboard');
+      } else {
+        setError('Invalid username or password');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 

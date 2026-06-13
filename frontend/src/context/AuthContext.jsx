@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch('http://localhost:8080/api/auth/me', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
       if (response.ok) {
         const data = await response.json();
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
+        credentials: 'include',
       });
       if (response.ok) {
         await checkAuth();
@@ -52,7 +54,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:8080/api/auth/logout', { method: 'POST' });
+      await fetch('http://localhost:8080/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
     } catch (error) {
       console.error('Logout failed', error);
     } finally {
