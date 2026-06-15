@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import api from '../api/axios';
 
 const AuthContext = createContext(null);
 
@@ -9,19 +10,9 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/auth/me', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data);
-        setIsAuthenticated(true);
-      } else {
-        setUser(null);
-        setIsAuthenticated(false);
-      }
+      const data = await api.get('/auth/me');
+      setUser(data);
+      setIsAuthenticated(true);
     } catch (error) {
       setUser(null);
       setIsAuthenticated(false);
@@ -36,17 +27,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include',
-      });
-      if (response.ok) {
-        await checkAuth();
-        return true;
-      }
-      return false;
+      await api.post('/auth/login', { username, password });
+      await checkAuth();
+      return true;
     } catch (error) {
       return false;
     }
@@ -54,10 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:8080/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
+      await api.post('/auth/logout');
     } catch (error) {
       console.error('Logout failed', error);
     } finally {

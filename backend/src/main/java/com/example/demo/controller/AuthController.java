@@ -41,7 +41,7 @@ public class AuthController {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
-        securityContextRepository.saveContext(context, request, response);
+        securityContextRepository.saveContext(context, request, response);  //saving was necessary to persist the security context in the session
 
         return ResponseEntity.ok(Map.of("message", "Login successful"));
     }
