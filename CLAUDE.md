@@ -32,5 +32,5 @@ Customer Support Management System featuring a React frontend and a Spring Boot 
 ### Key Technical Notes
 - **Tailwind CSS v4**: The project uses Tailwind v4. Use `@import "tailwindcss";` in CSS files and the `@tailwindcss/postcss` plugin in `postcss.config.js`.
 - **Security**: Current configuration in `SecurityConfig.java` allows all requests (`permitAll()`) and has CORS enabled for `http://localhost:5176` (and others) to facilitate frontend-backend communication during development.
-- **Database**: PostgreSQL is used for both relational data and vector embeddings (via `pgvector`).
-- **RAG Pipeline**: Designed to use OpenAI embeddings and LLMs for ticket categorization and auto-responses.
+- **Database**: PostgreSQL is used for both relational data.
+
