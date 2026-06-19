@@ -19,6 +19,13 @@ api.interceptors.response.use(
         window.location.href = '/login';
       }
     }
+    // Normalize: surface the backend's error message on the rejected error so callers can read err.message.
+    const serverMsg = error.response?.data?.message || error.response?.data?.error;
+    if (serverMsg) {
+      error.message = typeof serverMsg === 'string' ? serverMsg : JSON.stringify(serverMsg);
+    } else if (error.message) {
+      // keep default axios message
+    }
     return Promise.reject(error);
   }
 );

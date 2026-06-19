@@ -14,9 +14,4 @@ public class ResourceController {
     public Map<String, String> home() {
         return Map.of("message", "Welcome to the Home Page!");
     }
-
-    @GetMapping("/tickets")
-    public Map<String, String> tickets() {
-        return Map.of("message", "Welcome to the Tickets Page!");
-    }
 }

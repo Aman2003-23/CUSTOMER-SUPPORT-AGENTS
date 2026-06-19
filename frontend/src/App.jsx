@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import TicketsPage from './pages/TicketsPage';
+import TicketDetail from './components/TicketDetail';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             {/* Nested routes for Dashboard */}
             <Route path="home" element={<Home />} />
             <Route path="tickets" element={<TicketsPage />} />
+            <Route path="tickets/:id" element={<TicketDetail />} />
             {/* Redirect /dashboard to /dashboard/home */}
             <Route index element={<Navigate to="home" replace />} />
           </Route>
